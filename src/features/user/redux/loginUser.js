@@ -1,9 +1,11 @@
+import { push } from 'react-router-redux';
 import {
   USER_LOGIN_USER_BEGIN,
   USER_LOGIN_USER_SUCCESS,
   USER_LOGIN_USER_FAILURE,
   USER_LOGIN_USER_DISMISS_ERROR,
 } from './constants';
+import Constants from '../../../constants';
 
 // Rekit uses redux-thunk for async actions by default: https://github.com/gaearon/redux-thunk
 // If you prefer redux-saga, you can use rekit-plugin-redux-saga: https://github.com/supnate/rekit-plugin-redux-saga
@@ -21,13 +23,25 @@ export function loginUser(args = {}) {
       // doRequest is a placeholder Promise. You should replace it with your own logic.
       // See the real-word example at:  https://github.com/supnate/rekit/blob/master/src/features/home/redux/fetchRedditReactjsList.js
       // args.error here is only for test coverage purpose.
-      const doRequest = args.error ? Promise.reject(new Error()) : Promise.resolve();
+      const url = `${Constants.BASE_URL}/login`;
+      const doRequest = new Promise((resolve2, reject2) => {
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(args),
+        })
+        .then(res => resolve2(res.json())).catch(res => reject2(res));
+      });
       doRequest.then(
         (res) => {
           dispatch({
             type: USER_LOGIN_USER_SUCCESS,
             data: res,
           });
+          dispatch(push('/'));
           resolve(res);
         },
         // Use rejectHandler as the second argument so that render errors won't be caught.

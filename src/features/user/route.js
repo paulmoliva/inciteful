@@ -4,6 +4,7 @@
 import {
   DefaultPage,
   Signup,
+  Login,
 } from './';
 
 export default {
@@ -12,5 +13,6 @@ export default {
   childRoutes: [
     { path: 'default-page', name: 'Default page', component: DefaultPage, isIndex: true },
     { path: 'signup', name: 'Signup', component: Signup },
+    { path: 'login', name: 'Login', component: Login },
   ],
 };

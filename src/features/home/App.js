@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import NavBar from './NavBar'
 
 /*
   This is the root component of your app. Here you define the overall layout
@@ -18,7 +19,12 @@ export default class App extends Component {
   render() {
     return (
       <div className="home-app">
-        <div className="page-container">{this.props.children}</div>
+        <div className="page-container">
+          <React.Fragment>
+            <NavBar />
+            {this.props.children}
+          </React.Fragment>
+        </div>
       </div>
     );
   }
