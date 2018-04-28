@@ -25,8 +25,7 @@ export class DefaultPage extends Component {
         { currentUser ?
           <h3>Hello {currentUser.email}</h3> :
           <div className="app-intro">
-            <Link to='/user/signup'>Sign Up</Link>
-            <Link to='/user/login'>Login</Link>
+            
           </div>
         }
 

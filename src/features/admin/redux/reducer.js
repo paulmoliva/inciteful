@@ -7,16 +7,8 @@
 // https://medium.com/@nate_wang/a-new-approach-for-managing-redux-actions-91c26ce8b5da.
 
 import initialState from './initialState';
-import { reducer as signUpUserReducer } from './signUpUser';
-import { reducer as loginUserReducer } from './loginUser';
-import { reducer as logOutUserReducer } from './logOutUser';
-import { reducer as checkSessionReducer } from './checkSession';
 
 const reducers = [
-  signUpUserReducer,
-  loginUserReducer,
-  logOutUserReducer,
-  checkSessionReducer,
 ];
 
 export default function reducer(state = initialState, action) {
