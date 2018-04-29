@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from './redux/actions';
+import * as myActions from './redux/actions';
+import * as categoryActions from '../categories/redux/actions';
 
 export class DefaultPage extends Component {
   static propTypes = {
@@ -10,10 +11,41 @@ export class DefaultPage extends Component {
     actions: PropTypes.object.isRequired,
   };
 
+  state = {name: '', description: ''};
+
+  componentDidMount() {
+    this.props.actions.fetchCategories();
+  }
+
+  handleChange(name, e) {
+    this.setState({
+      [name]: e.target.value,
+    });
+  }
+
   render() {
+    const { allCategories, actions } = this.props;
     return (
       <div className="admin-default-page">
-        Page Content: admin/DefaultPage
+        <div className="signup-box">
+          <h3>New Category</h3>
+          <input value={this.state.name} type="text" placeholder="Name" onChange={this.handleChange.bind(this, 'name')}/>
+          <textarea 
+            value={this.state.description} 
+            onChange={this.handleChange.bind(this, 'description')} 
+            placeholder="Description"
+            rows="4"
+          />
+          <button onClick={() => actions.createCategory({ name: this.state.name, description: this.state.description})}>
+            Submit
+          </button>
+        </div>
+        <div>
+          <h3>All Categories</h3>
+          <ul>
+            {allCategories.map( category => <li key={category.id}>{category.name}</li>)}
+          </ul>
+        </div>
       </div>
     );
   }
@@ -23,13 +55,14 @@ export class DefaultPage extends Component {
 function mapStateToProps(state) {
   return {
     admin: state.admin,
+    allCategories: state.categories.allCategories,
   };
 }
 
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions }, dispatch)
+    actions: bindActionCreators({ ...myActions, ...categoryActions }, dispatch)
   };
 }
 

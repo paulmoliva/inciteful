@@ -1,5 +1,45 @@
 @import '../../styles/mixins';
 
 .admin-default-page {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: radial-gradient(circle at center, rgba(42, 42, 89, 0.7) 10%, rgba(42, 42, 89, 0.9) 40%, rgba(42, 42, 89, 0.7) 70%);
+  height: 100%;
 
+  textarea {
+      font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+      outline: 0;
+      display: block;
+      background: white;
+      width: 100%;
+      transition: border-color 0.2s ease 0s;
+      border-radius: 3px;
+      border: 1px solid #d4d9e2;
+      margin: 0 0 15px;
+      padding: 12px;
+      box-sizing: border-box;
+      font-size: 12px;
+  }
+
+  button {
+  font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+  border-radius: 3px;
+  outline: 0;
+  background: #323A45;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 18px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+}
+
+.admin-categories {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
