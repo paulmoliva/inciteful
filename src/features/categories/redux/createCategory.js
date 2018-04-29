@@ -68,7 +68,8 @@ export function reducer(state, action) {
 
     case CATEGORIES_CREATE_CATEGORY_SUCCESS:
       // The request is success
-      const { allCategories } = state;
+      let { allCategories } = state;
+      allCategories = JSON.parse(JSON.stringify(allCategories));
       allCategories.push(action.data.data);
       return {
         ...state,

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as myActions from './redux/actions';
 import * as categoryActions from '../categories/redux/actions';
+import CategoryForm from './CategoryForm';
 
 export class DefaultPage extends Component {
   static propTypes = {
@@ -11,39 +13,24 @@ export class DefaultPage extends Component {
     actions: PropTypes.object.isRequired,
   };
 
-  state = {name: '', description: ''};
-
   componentDidMount() {
     this.props.actions.fetchCategories();
-  }
-
-  handleChange(name, e) {
-    this.setState({
-      [name]: e.target.value,
-    });
   }
 
   render() {
     const { allCategories, actions } = this.props;
     return (
       <div className="admin-default-page">
-        <div className="signup-box">
-          <h3>New Category</h3>
-          <input value={this.state.name} type="text" placeholder="Name" onChange={this.handleChange.bind(this, 'name')}/>
-          <textarea 
-            value={this.state.description} 
-            onChange={this.handleChange.bind(this, 'description')} 
-            placeholder="Description"
-            rows="4"
-          />
-          <button onClick={() => actions.createCategory({ name: this.state.name, description: this.state.description})}>
-            Submit
-          </button>
-        </div>
+        <CategoryForm categoryAction={actions.createCategory} />
         <div>
           <h3>All Categories</h3>
           <ul>
-            {allCategories.map( category => <li key={category.id}>{category.name}</li>)}
+            {allCategories.map( category => (
+              <li key={category.id}>
+                <Link to={`admin/categories/${category.id}`}>{category.name}</Link>
+              </li>
+              )
+            )}
           </ul>
         </div>
       </div>
